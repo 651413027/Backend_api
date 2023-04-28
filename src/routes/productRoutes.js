@@ -3,18 +3,18 @@ const router = express.Router()
 const productController = require('../controllers/productControllers')
 const Customer = require('../models/Customer')
 const Product = require('../models/Product')
-// const verifyJWT = require('../middleware/verifyJWT')
+const verifyJWT = require('../middleware/verifyJWT')
 
-const {customersData,productsData} = require('../data/mockup')
-Product.insertMany(productsData)
+// const {customersData,productsData} = require('../data/mockup')
+// Product.insertMany(productsData)
 
 router
   .route('/') //verifyJWT,
-  .get(productController.getAllProducts)
-  .post(productController.createNewProduct)
-  .patch(productController.updateProduct)
-  .delete(productController.deleteProduct)
+  .get(verifyJWT,productController.getAllProducts)
+  .post(verifyJWT,productController.createNewProduct)
+  .patch(verifyJWT,productController.updateProduct)
+  .delete(verifyJWT,productController.deleteProduct)
 
-router.route('/:id').get(productController.getAllProducts)
+router.route('/:id').get(verifyJWT,productController.getAllProducts)
 
 module.exports = router
